@@ -13,3 +13,6 @@ class ErrorCounterState extends CounterState {
 
   ErrorCounterState({this.description});
 }
+
+class LoadingCounterState extends CounterState {
+}

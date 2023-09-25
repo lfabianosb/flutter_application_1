@@ -1,5 +1,5 @@
 import 'package:flutter/material.dart';
-import 'package:flutter_application_1/counter_model.dart';
+import 'package:flutter_application_1/counter_store.dart';
 import 'package:flutter_application_1/counter_state.dart';
 import 'package:provider/provider.dart';
 
@@ -20,9 +20,9 @@ class HomePage extends StatelessWidget {
             const Text(
               'You have pushed the button this many times:',
             ),
-            Consumer<CounterModel>(
-              builder: (context, counter, child) {
-                CounterState state = counter.state;
+            Consumer<CounterStore>(
+              builder: (context, store, child) {
+                CounterState state = store.state;
                 if (state is SuccessCounterState) {
                   return Text(
                     '${state.value}',
@@ -33,6 +33,8 @@ class HomePage extends StatelessWidget {
                     state.description ?? 'Erro...',
                     style: Theme.of(context).textTheme.headlineMedium,
                   );
+                } else if (state is LoadingCounterState) {
+                  return const CircularProgressIndicator(backgroundColor: Colors.black38);
                 } else {
                   return Text(
                     'Sem valor',
@@ -48,12 +50,12 @@ class HomePage extends StatelessWidget {
         mainAxisAlignment: MainAxisAlignment.center,
         children: [
           FloatingActionButton(
-            onPressed: context.read<CounterModel>().decrement,
+            onPressed: context.read<CounterStore>().decrement,
             tooltip: 'Decrement',
             child: const Icon(Icons.remove),
           ),
           FloatingActionButton(
-            onPressed: context.read<CounterModel>().increment,
+            onPressed: context.read<CounterStore>().increment,
             tooltip: 'Increment',
             child: const Icon(Icons.add),
           ),

@@ -1,5 +1,5 @@
 import 'package:flutter/material.dart';
-import 'package:flutter_application_1/counter_model.dart';
+import 'package:flutter_application_1/counter_store.dart';
 import 'package:flutter_application_1/home_page.dart';
 import 'package:provider/provider.dart';
 
@@ -19,7 +19,7 @@ class MyApp extends StatelessWidget {
         useMaterial3: true,
       ),
       home: ChangeNotifierProvider(
-        create: (_) => CounterModel(),
+        create: (_) => CounterStore(),
         child: const HomePage(),
       ),
     );
