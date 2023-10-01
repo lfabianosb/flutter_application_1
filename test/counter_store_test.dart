@@ -64,5 +64,18 @@ void main() {
       sut.addListener(errorStateVerifying);
       await sut.decrement();
     });
+
+    test('should change to SuccessCounterState(0) after increment', () async {
+      // Arrange
+      await sut.decrement();
+      successStateVerifying() {
+        expect(sut.state, const SuccessCounterState(value: 0));
+      }
+      // Act
+      // Assert
+      expect(sut.state, const ErrorCounterState(description: 'Numero negativo não permitido'));
+      sut.addListener(successStateVerifying);
+      await sut.increment();
+    });
   });
 }
