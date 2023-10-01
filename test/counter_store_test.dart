@@ -28,7 +28,7 @@ void main() {
       sut.addListener(loadingStateVerifying);
       // Act
       // Assert
-      var future = sut.increment();
+      final future = sut.increment();
       sut.removeListener(loadingStateVerifying);
       sut.addListener(successStateVerifying);
       await future;
@@ -47,7 +47,7 @@ void main() {
       // Act
       // Assert
       expect(sut.state, const SuccessCounterState(value: 1));
-      var future = sut.decrement();
+      final future = sut.decrement();
       sut.removeListener(loadingStateVerifying);
       sut.addListener(successStateVerifying);
       await future;
