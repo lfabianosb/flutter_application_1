@@ -3,7 +3,7 @@ import 'package:provider/provider.dart';
 
 import 'package:flutter_application_1/cep/cep_home_page.dart';
 import 'package:flutter_application_1/cep/consultar/consultar_cep_store.dart';
-import 'package:flutter_application_1/counter_store.dart';
+import 'package:flutter_application_1/counter/counter_store.dart';
 import 'package:flutter_application_1/service_locator.dart';
 
 void main() {

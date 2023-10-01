@@ -1,6 +1,7 @@
-import 'package:flutter_application_1/counter_state.dart';
-import 'package:flutter_application_1/counter_store.dart';
 import 'package:flutter_test/flutter_test.dart';
+
+import 'package:flutter_application_1/counter/counter_store.dart';
+import 'package:flutter_application_1/counter/counter_state.dart';
 
 void main() {
   late CounterStore sut;

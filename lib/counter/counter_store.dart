@@ -1,6 +1,6 @@
 import 'package:flutter/material.dart';
 
-import 'package:flutter_application_1/counter_state.dart';
+import 'package:flutter_application_1/counter/counter_state.dart';
 
 class CounterStore extends ChangeNotifier {
   CounterState _state = const SuccessCounterState();
