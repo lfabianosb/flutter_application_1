@@ -42,14 +42,27 @@ void main() {
       expect(sut.state, InitialConsultarCepState());
     });
 
-    test('should emit LoadedConsultarCepState from local datasource cep',
-        () async {
+    test('should emit LoadedConsultarCepState from local datasource', () async {
       // Arrange
       when(() => localDs.find(any())).thenAnswer((_) => Future.value(cepModel));
       // Act
       await sut.consultar('cep');
       // Assert
       expect(sut.state, LoadedConsultarCepState(cep: cepModel));
+    });
+
+    test('should emit LoadedConsultarCepState from remote datasource',
+        () async {
+      // Arrange
+      when(() => localDs.find(any())).thenAnswer((_) => Future.value());
+      when(() => localDs.save(cepModel)).thenAnswer((_) => Future.value());
+      when(() => remoteDs.find(any()))
+          .thenAnswer((_) => Future.value(cepModel));
+      // Act
+      await sut.consultar('cep');
+      // Assert
+      expect(sut.state, LoadedConsultarCepState(cep: cepModel));
+      verify(() => localDs.save(cepModel)).called(1);
     });
   });
 }
