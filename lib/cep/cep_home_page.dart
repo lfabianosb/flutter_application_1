@@ -4,8 +4,21 @@ import 'package:provider/provider.dart';
 import 'package:flutter_application_1/cep/consultar/consultar_cep_state.dart';
 import 'package:flutter_application_1/cep/consultar/consultar_cep_store.dart';
 
-class CepHomePage extends StatelessWidget {
+class CepHomePage extends StatefulWidget {
   const CepHomePage({super.key});
+
+  @override
+  State<CepHomePage> createState() => _CepHomePageState();
+}
+
+class _CepHomePageState extends State<CepHomePage> {
+  final cepInputController = TextEditingController();
+
+  @override
+  void dispose() {
+    cepInputController.dispose();
+    super.dispose();
+  }
 
   @override
   Widget build(BuildContext context) {
@@ -19,7 +32,14 @@ class CepHomePage extends StatelessWidget {
           mainAxisAlignment: MainAxisAlignment.center,
           children: <Widget>[
             const Text(
-              'CEP 58043330:',
+              'CEP:',
+            ),
+            TextField(
+              controller: cepInputController,
+              decoration: const InputDecoration(
+                border: OutlineInputBorder(),
+                hintText: 'Enter a CEP',
+              ),
             ),
             Consumer<ConsultarCepStore>(
               builder: (context, store, child) {
@@ -53,7 +73,8 @@ class CepHomePage extends StatelessWidget {
                     style: Theme.of(context).textTheme.headlineMedium,
                   );
                 } else if (state is LoadingConsultarCepState) {
-                  return const CircularProgressIndicator(backgroundColor: Colors.black38);
+                  return const CircularProgressIndicator(
+                      backgroundColor: Colors.black38);
                 } else {
                   return Text(
                     'Sem valor',
@@ -69,7 +90,9 @@ class CepHomePage extends StatelessWidget {
         mainAxisAlignment: MainAxisAlignment.center,
         children: [
           FloatingActionButton(
-            onPressed: () => context.read<ConsultarCepStore>().consultar('58043330'),
+            onPressed: () => context
+                .read<ConsultarCepStore>()
+                .consultar(cepInputController.text),
             tooltip: 'Consultar CEP',
             child: const Icon(Icons.find_in_page),
           ),
@@ -77,5 +100,4 @@ class CepHomePage extends StatelessWidget {
       ),
     );
   }
-
 }
