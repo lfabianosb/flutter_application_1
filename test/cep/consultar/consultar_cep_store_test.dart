@@ -42,10 +42,61 @@ void main() {
       expect(sut.state, InitialConsultarCepState());
     });
 
-    test('should emit LoadedConsultarCepState from local datasource cep',
-        () async {
+    test('should emit LoadingConsultarCepState before finding cep', () async {
+      // Arrange
+      when(() => localDs.find(any())).thenAnswer((_) => Future.value());
+      when(() => localDs.save(cepModel)).thenAnswer((_) => Future.value());
+      when(() => remoteDs.find(any()))
+          .thenAnswer((_) => Future.value(cepModel));
+      // Act
+      sut.consultar('cep');
+      // Assert
+      expect(sut.state, LoadingConsultarCepState());
+    });
+
+    test('should emit LoadedConsultarCepState from local datasource', () async {
       // Arrange
       when(() => localDs.find(any())).thenAnswer((_) => Future.value(cepModel));
+      // Act
+      await sut.consultar('cep');
+      // Assert
+      expect(sut.state, LoadedConsultarCepState(cep: cepModel));
+    });
+
+    test('should emit LoadedConsultarCepState from remote datasource',
+        () async {
+      // Arrange
+      when(() => localDs.find(any())).thenAnswer((_) => Future.value());
+      when(() => localDs.save(cepModel)).thenAnswer((_) => Future.value());
+      when(() => remoteDs.find(any()))
+          .thenAnswer((_) => Future.value(cepModel));
+      // Act
+      await sut.consultar('cep');
+      // Assert
+      expect(sut.state, LoadedConsultarCepState(cep: cepModel));
+    });
+
+    test('should emit ErrorConsultarCepState when remote find throws an error',
+        () async {
+      // Arrange
+      when(() => localDs.find(any())).thenAnswer((_) => Future.value());
+      when(() => remoteDs.find(any()))
+          .thenThrow(Exception('Erro ao consultar o CEP'));
+      // Act
+      await sut.consultar('cep');
+      // Assert
+      expect(sut.state,
+          ErrorConsultarCepState(description: 'Erro ao consultar o CEP cep'));
+    });
+
+    test('should emit LoadedConsultarCepState when local save throws an error',
+        () async {
+      // Arrange
+      when(() => localDs.find(any())).thenAnswer((_) => Future.value());
+      when(() => remoteDs.find(any()))
+          .thenAnswer((_) => Future.value(cepModel));
+      when(() => localDs.save(cepModel))
+          .thenThrow(Exception('Erro ao consultar o CEP'));
       // Act
       await sut.consultar('cep');
       // Assert

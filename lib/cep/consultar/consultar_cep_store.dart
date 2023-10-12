@@ -10,7 +10,8 @@ class ConsultarCepStore extends ChangeNotifier {
   final IRemoteCepDatasource remoteCepDataSource;
   final ILocalCepDatasource localCepDataSource;
 
-  ConsultarCepStore({required this.remoteCepDataSource, required this.localCepDataSource});
+  ConsultarCepStore(
+      {required this.remoteCepDataSource, required this.localCepDataSource});
 
   ConsultarCepState get state => _state;
 
@@ -31,8 +32,9 @@ class ConsultarCepStore extends ChangeNotifier {
       } else {
         _state = LoadedConsultarCepState(cep: localCepModel);
       }
-    } on Exception catch (e) {
-      _state = ErrorConsultarCepState(description: e.toString());
+    } on Exception {
+      _state =
+          ErrorConsultarCepState(description: 'Erro ao consultar o CEP $cep');
     }
     notifyListeners();
   }
