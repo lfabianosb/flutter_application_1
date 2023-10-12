@@ -45,32 +45,29 @@ class _CepHomePageState extends State<CepHomePage> {
               builder: (context, store, child) {
                 ConsultarCepState state = store.state;
                 if (state is InitialConsultarCepState) {
-                  return Text(
-                    'Clique para consultar',
-                    style: Theme.of(context).textTheme.headlineMedium,
-                  );
+                  return const Text('');
                 }
                 if (state is LoadedConsultarCepState) {
                   return Column(
                     children: [
                       Text(
                         state.cep.logradouro,
-                        style: Theme.of(context).textTheme.headlineMedium,
+                        style: Theme.of(context).textTheme.bodyMedium,
                       ),
                       Text(
                         state.cep.bairro,
-                        style: Theme.of(context).textTheme.headlineMedium,
+                        style: Theme.of(context).textTheme.bodyMedium,
                       ),
                       Text(
                         '${state.cep.localidade}/${state.cep.uf}',
-                        style: Theme.of(context).textTheme.headlineMedium,
+                        style: Theme.of(context).textTheme.bodyMedium,
                       ),
                     ],
                   );
                 } else if (state is ErrorConsultarCepState) {
                   return Text(
                     state.description ?? 'Erro...',
-                    style: Theme.of(context).textTheme.headlineMedium,
+                    style: Theme.of(context).textTheme.headlineSmall,
                   );
                 } else if (state is LoadingConsultarCepState) {
                   return const CircularProgressIndicator(
