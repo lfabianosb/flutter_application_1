@@ -76,7 +76,8 @@ void main() {
       expect(sut.state, LoadedConsultarCepState(cep: cepModel));
     });
 
-    test('should emit ErrorConsultarCepState when remote find throws an error',
+    test(
+        'should emit ErrorConsultarCepState when remote finding throws an error',
         () async {
       // Arrange
       when(() => localDs.find(any())).thenAnswer((_) => Future.value());
@@ -89,7 +90,8 @@ void main() {
           ErrorConsultarCepState(description: 'Erro ao consultar o CEP cep'));
     });
 
-    test('should emit LoadedConsultarCepState when local save throws an error',
+    test(
+        'should emit LoadedConsultarCepState when local saving throws an error',
         () async {
       // Arrange
       when(() => localDs.find(any())).thenAnswer((_) => Future.value());
