@@ -1,4 +1,5 @@
 import 'package:dio/dio.dart';
+import 'package:flutter_application_1/cep/common/adapters/remote_cep_datasource_exception.dart';
 import 'package:flutter_test/flutter_test.dart';
 
 import 'package:flutter_application_1/cep/common/adapters/remote_cep_datasource_dio_adapter.dart';
@@ -9,7 +10,8 @@ void main() {
   late RemoteCepDatasourceDioAdapter sut;
   late Dio dio;
   late DioAdapter dioAdapter;
-  const cepJson = '''{
+  const cepJson =
+      '''{
       "cep": "58043-330",
       "logradouro": "Rua do Sol",
       "complemento": "",
@@ -63,7 +65,12 @@ void main() {
       });
       // Act
       // Assert
-      expect(() async => await sut.find(invalidCep), throwsA(isA<Exception>()));
+      expect(
+          () async => await sut.find(invalidCep),
+          throwsA(isA<RemoteCepDatasourceException>().having(
+              (error) => error.message,
+              'message',
+              'Erro ao consultar o CEP $invalidCep')));
     });
 
     test('should throws an Exception when searching an incomplete cep', () {
@@ -79,7 +86,11 @@ void main() {
       // Act
       // Assert
       expect(
-          () async => await sut.find(incompleteCep), throwsA(isA<Exception>()));
+          () async => await sut.find(incompleteCep),
+          throwsA(isA<RemoteCepDatasourceException>().having(
+              (error) => error.message,
+              'message',
+              'CEP $incompleteCep não encentrado')));
     });
 
     test('should throws an Exception when remote server is down', () {
@@ -93,7 +104,10 @@ void main() {
       });
       // Act
       // Assert
-      expect(() async => await sut.find(anyCep), throwsA(isA<Exception>()));
+      expect(
+          () async => await sut.find(anyCep),
+          throwsA(isA<RemoteCepDatasourceException>().having(
+              (error) => error.message, 'message', 'Servidor fora do ar')));
     });
   });
 }
