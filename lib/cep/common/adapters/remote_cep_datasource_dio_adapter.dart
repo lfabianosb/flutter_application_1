@@ -4,7 +4,9 @@ import 'package:flutter_application_1/cep/common/datasources/remote_cep_datasour
 import 'package:flutter_application_1/cep/common/model/cep_model.dart';
 
 class RemoteCepDatasourceDioAdapter implements IRemoteCepDatasource {
-  final Dio _dio = Dio();
+  final Dio _dio;
+
+  RemoteCepDatasourceDioAdapter(Dio dio) : _dio = dio;
 
   @override
   Future<CepModel> find(String cep) async {

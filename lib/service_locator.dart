@@ -1,3 +1,4 @@
+import 'package:dio/dio.dart';
 import 'package:get_it/get_it.dart';
 
 import 'package:flutter_application_1/cep/common/adapters/local_cep_datasource_memory_adapter.dart';
@@ -9,7 +10,10 @@ import 'package:flutter_application_1/cep/common/datasources/remote_cep_datasour
 final getIt = GetIt.instance;
 
 void setup() {
-  getIt.registerFactory<IRemoteCepDatasource>(() => RemoteCepDatasourceDioAdapter());
-  getIt.registerFactory<ILocalCepDatasource>(() => LocalCepDatasourceMemoryAdapter());
-  getIt.registerSingleton<ConsultarCepStore>(ConsultarCepStore(remoteCepDataSource: getIt(), localCepDataSource: getIt()));
+  getIt.registerFactory<IRemoteCepDatasource>(
+      () => RemoteCepDatasourceDioAdapter(Dio()));
+  getIt.registerFactory<ILocalCepDatasource>(
+      () => LocalCepDatasourceMemoryAdapter());
+  getIt.registerSingleton<ConsultarCepStore>(ConsultarCepStore(
+      remoteCepDataSource: getIt(), localCepDataSource: getIt()));
 }
