@@ -1,9 +1,8 @@
 import 'package:flutter/material.dart';
 
-import 'package:flutter_application_1/cep/consultar/consultar_cep_state.dart';
-import 'package:flutter_application_1/cep/common/datasources/local_cep_datasource.dart';
-import 'package:flutter_application_1/cep/common/datasources/remote_cep_datasource.dart';
-import 'package:flutter_application_1/cep/common/model/cep_model.dart';
+import 'package:flutter_application_1/cep/common/datasources/datasources.dart';
+import 'package:flutter_application_1/cep/common/model/model.dart';
+import 'package:flutter_application_1/cep/consultar/consultar.dart';
 
 class ConsultarCepStore extends ChangeNotifier {
   ConsultarCepState _state = InitialConsultarCepState();

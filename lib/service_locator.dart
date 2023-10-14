@@ -1,11 +1,9 @@
 import 'package:dio/dio.dart';
 import 'package:get_it/get_it.dart';
 
-import 'package:flutter_application_1/cep/common/adapters/local_cep_datasource_memory_adapter.dart';
-import 'package:flutter_application_1/cep/common/adapters/remote_cep_datasource_dio_adapter.dart';
-import 'package:flutter_application_1/cep/consultar/consultar_cep_store.dart';
-import 'package:flutter_application_1/cep/common/datasources/local_cep_datasource.dart';
-import 'package:flutter_application_1/cep/common/datasources/remote_cep_datasource.dart';
+import 'package:flutter_application_1/cep/common/adapters/adapters.dart';
+import 'package:flutter_application_1/cep/common/datasources/datasources.dart';
+import 'package:flutter_application_1/cep/consultar/consultar.dart';
 
 final getIt = GetIt.instance;
 

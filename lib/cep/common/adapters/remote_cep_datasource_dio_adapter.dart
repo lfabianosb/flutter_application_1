@@ -1,8 +1,8 @@
 import 'package:dio/dio.dart';
 
-import 'package:flutter_application_1/cep/common/adapters/remote_cep_datasource_exception.dart';
-import 'package:flutter_application_1/cep/common/datasources/remote_cep_datasource.dart';
-import 'package:flutter_application_1/cep/common/model/cep_model.dart';
+import 'package:flutter_application_1/cep/common/adapters/adapters.dart';
+import 'package:flutter_application_1/cep/common/datasources/datasources.dart';
+import 'package:flutter_application_1/cep/common/model/model.dart';
 
 class RemoteCepDatasourceDioAdapter implements IRemoteCepDatasource {
   final Dio _dio;

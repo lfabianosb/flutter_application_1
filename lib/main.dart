@@ -1,8 +1,9 @@
 import 'package:flutter/material.dart';
+
 import 'package:provider/provider.dart';
 
 import 'package:flutter_application_1/cep/cep_home_page.dart';
-import 'package:flutter_application_1/cep/consultar/consultar_cep_store.dart';
+import 'package:flutter_application_1/cep/consultar/consultar.dart';
 import 'package:flutter_application_1/counter/counter_store.dart';
 import 'package:flutter_application_1/service_locator.dart';
 
@@ -24,8 +25,9 @@ class MyApp extends StatelessWidget {
       ),
       home: MultiProvider(
         providers: [
-          ChangeNotifierProvider<CounterStore>(create: (_) => CounterStore()),         
-          ChangeNotifierProvider<ConsultarCepStore>(create: (_) => getIt.get<ConsultarCepStore>()),         
+          ChangeNotifierProvider<CounterStore>(create: (_) => CounterStore()),
+          ChangeNotifierProvider<ConsultarCepStore>(
+              create: (_) => getIt.get<ConsultarCepStore>()),
         ],
         child: const CepHomePage(),
       ),

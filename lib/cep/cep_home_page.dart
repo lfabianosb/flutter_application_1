@@ -1,8 +1,8 @@
 import 'package:flutter/material.dart';
+
 import 'package:provider/provider.dart';
 
-import 'package:flutter_application_1/cep/consultar/consultar_cep_state.dart';
-import 'package:flutter_application_1/cep/consultar/consultar_cep_store.dart';
+import 'package:flutter_application_1/cep/consultar/consultar.dart';
 
 class CepHomePage extends StatefulWidget {
   const CepHomePage({super.key});

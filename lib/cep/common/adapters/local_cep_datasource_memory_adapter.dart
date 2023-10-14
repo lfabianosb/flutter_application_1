@@ -1,7 +1,7 @@
 import 'package:flutter/material.dart';
 
-import 'package:flutter_application_1/cep/common/datasources/local_cep_datasource.dart';
-import 'package:flutter_application_1/cep/common/model/cep_model.dart';
+import 'package:flutter_application_1/cep/common/datasources/datasources.dart';
+import 'package:flutter_application_1/cep/common/model/model.dart';
 
 class LocalCepDatasourceMemoryAdapter implements ILocalCepDatasource {
   final List<CepModel> _ceps = [];
@@ -12,12 +12,12 @@ class LocalCepDatasourceMemoryAdapter implements ILocalCepDatasource {
     debugPrint('find by LOCAL ds');
     return result.firstOrNull;
   }
-  
+
   @override
   Future<void> remove(String cep) async {
     _ceps.removeWhere((c) => c.cep == cep);
   }
-  
+
   @override
   Future<void> save(CepModel cep) async {
     final result = _ceps.where((c) => c.cep == cep.cep);

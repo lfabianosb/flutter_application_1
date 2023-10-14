@@ -1,5 +1,6 @@
 import 'package:equatable/equatable.dart';
-import 'package:flutter_application_1/cep/common/model/cep_model.dart';
+
+import 'package:flutter_application_1/cep/common/model/model.dart';
 
 sealed class ConsultarCepState extends Equatable {}
 
@@ -17,7 +18,7 @@ class LoadedConsultarCepState extends ConsultarCepState {
   final CepModel cep;
 
   LoadedConsultarCepState({required this.cep});
-  
+
   @override
   List<Object?> get props => [cep];
 }
