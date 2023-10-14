@@ -4,4 +4,5 @@ abstract class ILocalCepDatasource {
   Future<CepModel?> find(String cep);
   Future<void> save(CepModel cep);
   Future<void> remove(String cep);
+  Future<List<CepModel>> findAll();
 }

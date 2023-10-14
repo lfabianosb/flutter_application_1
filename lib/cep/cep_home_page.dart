@@ -3,6 +3,7 @@ import 'package:flutter/material.dart';
 import 'package:provider/provider.dart';
 
 import 'package:flutter_application_1/cep/consultar/consultar.dart';
+import 'package:flutter_application_1/cep/consultar_historico/consultar_historico.dart';
 
 class CepHomePage extends StatefulWidget {
   const CepHomePage({super.key});
@@ -31,6 +32,38 @@ class _CepHomePageState extends State<CepHomePage> {
         child: Column(
           mainAxisAlignment: MainAxisAlignment.center,
           children: <Widget>[
+            Consumer<ConsultarHistoricoCepStore>(
+                builder: (context, store, child) {
+              ConsultarHistoricoCepState state = store.state;
+              if (state is InitialConsultarHistoricoCepState) {
+                return const SizedBox(
+                  height: 260,
+                  child: Text('Sem historico'),
+                );
+              }
+              if (state is LoadingConsultarHistoricoCepState) {
+                return const CircularProgressIndicator(
+                    backgroundColor: Colors.black38);
+              }
+              if (state is ErrorConsultarHistoricoCepState) {
+                return Text(
+                  state.description ?? 'Erro...',
+                  style: Theme.of(context).textTheme.headlineSmall,
+                );
+              }
+              if (state is LoadedConsultarHistoricoCepState) {
+                return SizedBox(
+                  height: 260,
+                  child: ListView.builder(
+                      itemCount: state.ceps.length,
+                      itemBuilder: (context, index) {
+                        return ListTile(title: Text(state.ceps[index].cep));
+                      }),
+                );
+              }
+              return const Text('');
+            }),
+            const SizedBox(height: 80),
             const Text(
               'CEP:',
             ),
@@ -64,20 +97,18 @@ class _CepHomePageState extends State<CepHomePage> {
                       ),
                     ],
                   );
-                } else if (state is ErrorConsultarCepState) {
+                }
+                if (state is ErrorConsultarCepState) {
                   return Text(
                     state.description ?? 'Erro...',
                     style: Theme.of(context).textTheme.headlineSmall,
                   );
-                } else if (state is LoadingConsultarCepState) {
+                }
+                if (state is LoadingConsultarCepState) {
                   return const CircularProgressIndicator(
                       backgroundColor: Colors.black38);
-                } else {
-                  return Text(
-                    'Sem valor',
-                    style: Theme.of(context).textTheme.headlineMedium,
-                  );
                 }
+                return const Text('');
               },
             ),
           ],
@@ -92,6 +123,12 @@ class _CepHomePageState extends State<CepHomePage> {
                 .consultar(cepInputController.text),
             tooltip: 'Consultar CEP',
             child: const Icon(Icons.find_in_page),
+          ),
+          FloatingActionButton(
+            onPressed: () =>
+                context.read<ConsultarHistoricoCepStore>().consultar(),
+            tooltip: 'Historico de CEPs',
+            child: const Icon(Icons.history_rounded),
           ),
         ],
       ),
