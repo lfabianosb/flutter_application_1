@@ -19,7 +19,7 @@ class ConsultarHistoricoCepStore extends ChangeNotifier {
       _state = LoadedConsultarHistoricoCepState(ceps: localCepsModel);
     } on Exception {
       _state = ErrorConsultarHistoricoCepState(
-          description: 'Erro ao consultar historico de CEPs');
+          description: 'Erro ao consultar o historico de CEPs');
     }
     notifyListeners();
   }
