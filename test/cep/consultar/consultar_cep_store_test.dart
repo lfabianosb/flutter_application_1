@@ -1,11 +1,10 @@
-import 'package:flutter_application_1/cep/common/model/cep_model.dart';
-import 'package:flutter_application_1/cep/consultar/consultar_cep_state.dart';
 import 'package:flutter_test/flutter_test.dart';
 import 'package:mocktail/mocktail.dart';
 
-import 'package:flutter_application_1/cep/common/datasources/local_cep_datasource.dart';
-import 'package:flutter_application_1/cep/common/datasources/remote_cep_datasource.dart';
-import 'package:flutter_application_1/cep/consultar/consultar_cep_store.dart';
+import 'package:flutter_application_1/cep/common/datasources/datasources.dart';
+import 'package:flutter_application_1/cep/common/model/model.dart';
+import 'package:flutter_application_1/cep/consultar/consultar.dart';
+import 'package:flutter_application_1/events/event_bus.dart';
 
 class RemoteCepDatasourceMock extends Mock implements IRemoteCepDatasource {}
 
@@ -21,7 +20,10 @@ void main() {
     remoteDs = RemoteCepDatasourceMock();
     localDs = LocalCepDatasourceMock();
     sut = ConsultarCepStore(
-        remoteCepDataSource: remoteDs, localCepDataSource: localDs);
+      remoteCepDataSource: remoteDs,
+      localCepDataSource: localDs,
+      eventBus: EventBus(),
+    );
     cepModel = const CepModel(
       cep: 'cep',
       logradouro: 'logradouro',

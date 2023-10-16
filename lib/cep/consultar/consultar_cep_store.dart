@@ -3,14 +3,19 @@ import 'package:flutter/material.dart';
 import 'package:flutter_application_1/cep/common/datasources/datasources.dart';
 import 'package:flutter_application_1/cep/common/model/model.dart';
 import 'package:flutter_application_1/cep/consultar/consultar.dart';
+import 'package:flutter_application_1/events/events.dart';
 
 class ConsultarCepStore extends ChangeNotifier {
   ConsultarCepState _state = InitialConsultarCepState();
   final IRemoteCepDatasource remoteCepDataSource;
   final ILocalCepDatasource localCepDataSource;
+  final EventBus eventBus;
 
-  ConsultarCepStore(
-      {required this.remoteCepDataSource, required this.localCepDataSource});
+  ConsultarCepStore({
+    required this.remoteCepDataSource,
+    required this.localCepDataSource,
+    required this.eventBus,
+  });
 
   ConsultarCepState get state => _state;
 
@@ -23,6 +28,7 @@ class ConsultarCepStore extends ChangeNotifier {
         final CepModel remoteCepModel = await remoteCepDataSource.find(cep);
         try {
           await localCepDataSource.save(remoteCepModel);
+          eventBus.fire(CepSalvedOnLocalDsEvent(cep: cep));
         } on Exception catch (e) {
           debugPrint(e.toString());
         } finally {
