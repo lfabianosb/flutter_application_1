@@ -10,19 +10,23 @@ class RemoteCepDatasourceMock extends Mock implements IRemoteCepDatasource {}
 
 class LocalCepDatasourceMock extends Mock implements ILocalCepDatasource {}
 
+class EventBusMock extends Mock implements EventBus {}
+
 void main() {
   late IRemoteCepDatasource remoteDs;
   late ILocalCepDatasource localDs;
-  late ConsultarCepStore sut;
+  late EventBus eventBus;
   late CepModel cepModel;
+  late ConsultarCepStore sut;
 
   setUp(() {
     remoteDs = RemoteCepDatasourceMock();
     localDs = LocalCepDatasourceMock();
+    eventBus = EventBusMock();
     sut = ConsultarCepStore(
       remoteCepDataSource: remoteDs,
       localCepDataSource: localDs,
-      eventBus: EventBus(),
+      eventBus: eventBus,
     );
     cepModel = const CepModel(
       cep: 'cep',
@@ -63,6 +67,7 @@ void main() {
       await sut.consultar('cep');
       // Assert
       expect(sut.state, LoadedConsultarCepState(cep: cepModel));
+      verifyNever(() => eventBus.fire(any()));
     });
 
     test('should emit LoadedConsultarCepState from remote datasource',
@@ -76,6 +81,7 @@ void main() {
       await sut.consultar('cep');
       // Assert
       expect(sut.state, LoadedConsultarCepState(cep: cepModel));
+      verify(() => eventBus.fire(any())).called(1);
     });
 
     test(
@@ -90,6 +96,7 @@ void main() {
       // Assert
       expect(sut.state,
           ErrorConsultarCepState(description: 'Erro ao consultar o CEP cep'));
+      verifyNever(() => eventBus.fire(any()));
     });
 
     test(
@@ -105,6 +112,7 @@ void main() {
       await sut.consultar('cep');
       // Assert
       expect(sut.state, LoadedConsultarCepState(cep: cepModel));
+      verifyNever(() => eventBus.fire(any()));
     });
   });
 }
