@@ -6,6 +6,7 @@ import 'package:flutter_application_1/cep/common/datasources/datasources.dart';
 import 'package:flutter_application_1/cep/consultar/consultar.dart';
 import 'package:flutter_application_1/cep/consultar_historico/consultar_historico.dart';
 import 'package:flutter_application_1/events/events.dart';
+import 'package:flutter_application_1/events/handlers/handlers.dart';
 
 final getIt = GetIt.instance;
 
@@ -29,8 +30,10 @@ void setup() {
       ConsultarHistoricoCepStore(localCepDataSource: getIt()));
 
   // Event bus integration
-  getIt.registerSingleton<EventBusIntegration>(EventBusIntegration(
+  getIt.registerSingleton<CepSalvedOnLocalDsEventHandler>(
+      CepSalvedOnLocalDsEventHandler(consultarHistoricoCepStore: getIt()));
+  getIt.registerSingleton<EventBusController>(EventBusController(
     eventBus: getIt(),
-    consultarHistoricoCepStore: getIt(),
+    cepSalvedOnLocalDsEventHandler: getIt(),
   ));
 }

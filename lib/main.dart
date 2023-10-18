@@ -11,7 +11,7 @@ import 'package:flutter_application_1/service_locator.dart';
 
 void main() {
   setup();
-  getIt.get<EventBusIntegration>().init();
+  getIt.get<EventBusController>().init();
   runApp(const MyApp());
 }
 
