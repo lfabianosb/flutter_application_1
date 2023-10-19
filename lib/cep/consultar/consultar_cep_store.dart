@@ -1,15 +1,16 @@
 import 'package:flutter/material.dart';
 
 import 'package:flutter_application_1/cep/common/datasources/datasources.dart';
+import 'package:flutter_application_1/cep/common/events/events.dart';
 import 'package:flutter_application_1/cep/common/model/model.dart';
 import 'package:flutter_application_1/cep/consultar/consultar.dart';
-import 'package:flutter_application_1/events/events.dart';
+import 'package:flutter_application_1/shared/domain/events/events.dart';
 
 class ConsultarCepStore extends ChangeNotifier {
   ConsultarCepState _state = InitialConsultarCepState();
   final IRemoteCepDatasource remoteCepDataSource;
   final ILocalCepDatasource localCepDataSource;
-  final EventBus eventBus;
+  final IEventBus eventBus;
 
   ConsultarCepStore({
     required this.remoteCepDataSource,

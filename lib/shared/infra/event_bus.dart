@@ -1,6 +1,8 @@
 import 'dart:async';
 
-class EventBus {
+import 'package:flutter_application_1/shared/domain/events/events.dart';
+
+class EventBus implements IEventBus {
   final StreamController _streamController;
 
   /// Controller for the event bus stream.
@@ -30,6 +32,7 @@ class EventBus {
   /// unpaused or canceled. So it's usually better to just cancel and later
   /// subscribe again (avoids memory leak).
   ///
+  @override
   Stream<T> on<T>() {
     if (T == dynamic) {
       return _streamController.stream as Stream<T>;
@@ -40,12 +43,14 @@ class EventBus {
 
   /// Fires a new event on the event bus with the specified [event].
   ///
-  void fire(event) {
+  @override
+  void fire(IDomainEvent event) {
     _streamController.add(event);
   }
 
   /// Destroy this [EventBus]. This is generally only in a testing context.
   ///
+  @override
   void destroy() {
     _streamController.close();
   }

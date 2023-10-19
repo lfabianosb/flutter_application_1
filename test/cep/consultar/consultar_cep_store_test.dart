@@ -4,18 +4,18 @@ import 'package:mocktail/mocktail.dart';
 import 'package:flutter_application_1/cep/common/datasources/datasources.dart';
 import 'package:flutter_application_1/cep/common/model/model.dart';
 import 'package:flutter_application_1/cep/consultar/consultar.dart';
-import 'package:flutter_application_1/events/event_bus.dart';
+import 'package:flutter_application_1/shared/domain/events/events.dart';
 
 class RemoteCepDatasourceMock extends Mock implements IRemoteCepDatasource {}
 
 class LocalCepDatasourceMock extends Mock implements ILocalCepDatasource {}
 
-class EventBusMock extends Mock implements EventBus {}
+class EventBusMock extends Mock implements IEventBus {}
 
 void main() {
   late IRemoteCepDatasource remoteDs;
   late ILocalCepDatasource localDs;
-  late EventBus eventBus;
+  late IEventBus eventBus;
   late CepModel cepModel;
   late ConsultarCepStore sut;
 
@@ -38,6 +38,8 @@ void main() {
       ibge: 1,
       ddd: 2,
     );
+    // Using any() as parameter
+    registerFallbackValue(IDomainEvent());
   });
 
   group('ConsultarCepStore', () {

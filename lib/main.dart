@@ -6,8 +6,8 @@ import 'package:flutter_application_1/cep/cep_home_page.dart';
 import 'package:flutter_application_1/cep/consultar/consultar.dart';
 import 'package:flutter_application_1/cep/consultar_historico/consultar_historico.dart';
 import 'package:flutter_application_1/counter/counter_store.dart';
-import 'package:flutter_application_1/events/events.dart';
 import 'package:flutter_application_1/service_locator.dart';
+import 'package:flutter_application_1/shared/application/application.dart';
 
 void main() {
   setup();

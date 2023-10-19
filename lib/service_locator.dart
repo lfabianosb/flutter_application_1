@@ -3,10 +3,12 @@ import 'package:get_it/get_it.dart';
 
 import 'package:flutter_application_1/cep/common/adapters/adapters.dart';
 import 'package:flutter_application_1/cep/common/datasources/datasources.dart';
+import 'package:flutter_application_1/cep/common/events/events.dart';
 import 'package:flutter_application_1/cep/consultar/consultar.dart';
 import 'package:flutter_application_1/cep/consultar_historico/consultar_historico.dart';
-import 'package:flutter_application_1/events/events.dart';
-import 'package:flutter_application_1/events/handlers/handlers.dart';
+import 'package:flutter_application_1/shared/application/application.dart';
+import 'package:flutter_application_1/shared/domain/events/events.dart';
+import 'package:flutter_application_1/shared/infra/infra.dart';
 
 final getIt = GetIt.instance;
 
@@ -15,7 +17,7 @@ void setup() {
   getIt.registerFactory<Dio>(() => Dio());
 
   // Event bus
-  getIt.registerSingleton<EventBus>(EventBus());
+  getIt.registerSingleton<IEventBus>(EventBus());
 
   getIt.registerSingleton<IRemoteCepDatasource>(
       RemoteCepDatasourceDioAdapter(getIt()));
