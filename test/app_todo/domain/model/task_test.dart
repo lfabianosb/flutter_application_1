@@ -16,7 +16,7 @@ void main() {
     });
 
     test(
-        'should throws an exception when trying to finish a task with a date before a create date',
+        'should throw an exception when trying to finish a task with a date before a create date',
         () {
       // Arrange
       var sut = Task.create(description: 'description');
@@ -28,7 +28,7 @@ void main() {
           throwsA(isA<Exception>()));
     });
 
-    test('should finishes a task with a valid date', () {
+    test('should finish a task with a valid date', () {
       // Arrange
       var sut = Task.create(description: 'description');
       var finishDate = DateTime.now();
