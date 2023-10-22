@@ -28,6 +28,17 @@ void main() {
           throwsA(isA<Exception>()));
     });
 
+    test('should finish a task', () {
+      // Arrange
+      var sut = Task.create(description: 'description');
+      // Act
+      var sutAfterFinish = sut.finish();
+      // Assert
+      expect(sut.id.value, sutAfterFinish.id.value);
+      expect(sut.description, sutAfterFinish.description);
+      expect(sut.createdAt, sutAfterFinish.createdAt);
+    });
+
     test('should finish a task with a valid date', () {
       // Arrange
       var sut = Task.create(description: 'description');
