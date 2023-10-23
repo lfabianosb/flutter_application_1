@@ -34,40 +34,7 @@ class _TaskHomePageState extends State<TaskHomePage> {
         child: Column(
           mainAxisAlignment: MainAxisAlignment.center,
           children: <Widget>[
-            Consumer<ListTasksStore>(builder: (context, store, child) {
-              ListTasksState state = store.state;
-              if (state is InitialListTasksState) {
-                return const SizedBox(
-                  height: 260,
-                  child: Text('Sem tarefas'),
-                );
-              }
-              if (state is ExecutingListTasksState) {
-                return const CircularProgressIndicator(
-                    backgroundColor: Colors.black38);
-              }
-              if (state is ErrorListTasksState) {
-                return Text(
-                  state.description ?? 'Erro...',
-                  style: Theme.of(context).textTheme.headlineSmall,
-                );
-              }
-              if (state is ExecutedListTasksState) {
-                return SizedBox(
-                  height: 260,
-                  child: ListView.builder(
-                    itemCount: state.tasks.length,
-                    itemBuilder: (context, index) {
-                      return ListTile(
-                        title: Text(
-                            '${state.tasks[index].description} - (${state.tasks[index].id.value})'),
-                      );
-                    },
-                  ),
-                );
-              }
-              return const Text('');
-            }),
+            const ListTaskWidget(),
             const SizedBox(height: 80),
             const Text(
               'Tarefa:',
@@ -79,35 +46,7 @@ class _TaskHomePageState extends State<TaskHomePage> {
                 hintText: 'Tarefa',
               ),
             ),
-            Consumer<SaveTaskStore>(
-              builder: (context, store, child) {
-                SaveTaskState state = store.state;
-                if (state is InitialSaveTaskState) {
-                  return const Text('');
-                }
-                if (state is ExecutedSaveTaskState) {
-                  return Column(
-                    children: [
-                      Text(
-                        '${state.task.description} saved',
-                        style: Theme.of(context).textTheme.bodyMedium,
-                      ),
-                    ],
-                  );
-                }
-                if (state is ErrorSaveTaskState) {
-                  return Text(
-                    state.description ?? 'Erro...',
-                    style: Theme.of(context).textTheme.headlineSmall,
-                  );
-                }
-                if (state is ExecutingSaveTaskState) {
-                  return const CircularProgressIndicator(
-                      backgroundColor: Colors.black38);
-                }
-                return const Text('');
-              },
-            ),
+            const SaveTaskWidget(),
           ],
         ),
       ),
@@ -123,6 +62,90 @@ class _TaskHomePageState extends State<TaskHomePage> {
           ),
         ],
       ),
+    );
+  }
+}
+
+class SaveTaskWidget extends StatelessWidget {
+  const SaveTaskWidget({super.key});
+
+  @override
+  Widget build(BuildContext context) {
+    return Consumer<SaveTaskStore>(
+      builder: (context, store, child) {
+        SaveTaskState state = store.state;
+        if (state is InitialSaveTaskState) {
+          return const Text('');
+        }
+        if (state is ExecutedSaveTaskState) {
+          // Future.delayed(const Duration(milliseconds: 100), () {
+          //   context.read<ListTasksStore>().execute();
+          // });
+          return Column(
+            children: [
+              Text(
+                '${state.task.description} saved',
+                style: Theme.of(context).textTheme.bodyMedium,
+              ),
+            ],
+          );
+        }
+        if (state is ErrorSaveTaskState) {
+          return Text(
+            state.description ?? 'Erro...',
+            style: Theme.of(context).textTheme.headlineSmall,
+          );
+        }
+        if (state is ExecutingSaveTaskState) {
+          return const CircularProgressIndicator(
+              backgroundColor: Colors.black38);
+        }
+        return const Text('');
+      },
+    );
+  }
+}
+
+class ListTaskWidget extends StatelessWidget {
+  const ListTaskWidget({super.key});
+
+  @override
+  Widget build(BuildContext context) {
+    return Consumer<ListTasksStore>(
+      builder: (context, store, child) {
+        ListTasksState state = store.state;
+        if (state is InitialListTasksState) {
+          return const SizedBox(
+            height: 260,
+            child: Text('Sem tarefas'),
+          );
+        }
+        if (state is ExecutingListTasksState) {
+          return const CircularProgressIndicator(
+              backgroundColor: Colors.black38);
+        }
+        if (state is ErrorListTasksState) {
+          return Text(
+            state.description ?? 'Erro...',
+            style: Theme.of(context).textTheme.headlineSmall,
+          );
+        }
+        if (state is ExecutedListTasksState) {
+          return SizedBox(
+            height: 260,
+            child: ListView.builder(
+              itemCount: state.tasks.length,
+              itemBuilder: (context, index) {
+                return ListTile(
+                  title: Text(
+                      '${state.tasks[index].description} - (${state.tasks[index].id.value})'),
+                );
+              },
+            ),
+          );
+        }
+        return const Text('');
+      },
     );
   }
 }
