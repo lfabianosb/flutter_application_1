@@ -7,14 +7,14 @@ import 'package:flutter_application_1/app_todo/list_tasks/list_tasks_store.dart'
 import 'package:flutter_application_1/app_todo/save_task/save_task_state.dart';
 import 'package:flutter_application_1/app_todo/save_task/save_task_store.dart';
 
-class TaskPage extends StatefulWidget {
-  const TaskPage({super.key});
+class TaskHomePage extends StatefulWidget {
+  const TaskHomePage({super.key});
 
   @override
-  State<TaskPage> createState() => _TaskPageState();
+  State<TaskHomePage> createState() => _TaskHomePageState();
 }
 
-class _TaskPageState extends State<TaskPage> {
+class _TaskHomePageState extends State<TaskHomePage> {
   final taskInputController = TextEditingController();
 
   @override
@@ -39,7 +39,7 @@ class _TaskPageState extends State<TaskPage> {
               if (state is InitialListTasksState) {
                 return const SizedBox(
                   height: 260,
-                  child: Text('Sem historico'),
+                  child: Text('Sem tarefas'),
                 );
               }
               if (state is ExecutingListTasksState) {
@@ -56,18 +56,21 @@ class _TaskPageState extends State<TaskPage> {
                 return SizedBox(
                   height: 260,
                   child: ListView.builder(
-                      itemCount: state.tasks.length,
-                      itemBuilder: (context, index) {
-                        return ListTile(
-                            title: Text(state.tasks[index].description));
-                      }),
+                    itemCount: state.tasks.length,
+                    itemBuilder: (context, index) {
+                      return ListTile(
+                        title: Text(
+                            '${state.tasks[index].description} - (${state.tasks[index].id.value})'),
+                      );
+                    },
+                  ),
                 );
               }
               return const Text('');
             }),
             const SizedBox(height: 80),
             const Text(
-              'CEP:',
+              'Tarefa:',
             ),
             TextField(
               controller: taskInputController,
