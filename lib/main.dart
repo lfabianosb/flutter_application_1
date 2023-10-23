@@ -2,9 +2,9 @@ import 'package:flutter/material.dart';
 
 import 'package:provider/provider.dart';
 
-import 'package:flutter_application_1/app_todo/list_tasks/list_tasks_store.dart';
+import 'package:flutter_application_1/app_todo/application/list_tasks/list_tasks_store.dart';
+import 'package:flutter_application_1/app_todo/application/save_task/save_task_store.dart';
 import 'package:flutter_application_1/app_todo/pages/task_home_page.dart';
-import 'package:flutter_application_1/app_todo/save_task/save_task_store.dart';
 import 'package:flutter_application_1/cep/consultar/consultar.dart';
 import 'package:flutter_application_1/cep/consultar_historico/consultar_historico.dart';
 import 'package:flutter_application_1/counter/counter_store.dart';

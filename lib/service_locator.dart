@@ -1,11 +1,11 @@
 import 'package:dio/dio.dart';
 import 'package:get_it/get_it.dart';
 
+import 'package:flutter_application_1/app_todo/application/list_tasks/list_tasks_store.dart';
+import 'package:flutter_application_1/app_todo/application/save_task/save_task_store.dart';
 import 'package:flutter_application_1/app_todo/domain/datasources/i_task_datasource.dart';
 import 'package:flutter_application_1/app_todo/domain/events/task_saved_event_handler.dart';
-import 'package:flutter_application_1/app_todo/infra/task_datasource.dart';
-import 'package:flutter_application_1/app_todo/list_tasks/list_tasks_store.dart';
-import 'package:flutter_application_1/app_todo/save_task/save_task_store.dart';
+import 'package:flutter_application_1/app_todo/infra/datasources/task_datasource.dart';
 import 'package:flutter_application_1/cep/common/adapters/adapters.dart';
 import 'package:flutter_application_1/cep/common/datasources/datasources.dart';
 import 'package:flutter_application_1/cep/common/events/events.dart';

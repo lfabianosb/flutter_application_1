@@ -2,6 +2,7 @@ import 'package:flutter_test/flutter_test.dart';
 import 'package:mocktail/mocktail.dart';
 
 import 'package:flutter_application_1/cep/common/datasources/datasources.dart';
+import 'package:flutter_application_1/cep/common/events/events.dart';
 import 'package:flutter_application_1/cep/common/model/model.dart';
 import 'package:flutter_application_1/cep/consultar/consultar.dart';
 import 'package:flutter_application_1/shared/domain/events/events.dart';
@@ -39,7 +40,7 @@ void main() {
       ddd: 2,
     );
     // Using any() as parameter
-    registerFallbackValue(IDomainEvent());
+    registerFallbackValue(CepSalvedOnLocalDsEvent(cep: ''));
   });
 
   group('ConsultarCepStore', () {

@@ -1,7 +1,7 @@
 import 'package:flutter/material.dart';
 
+import 'package:flutter_application_1/app_todo/application/list_tasks/list_tasks_state.dart';
 import 'package:flutter_application_1/app_todo/domain/datasources/i_task_datasource.dart';
-import 'package:flutter_application_1/app_todo/list_tasks/list_tasks_state.dart';
 
 class ListTasksStore extends ChangeNotifier {
   ListTasksState _state = InitialListTasksState();

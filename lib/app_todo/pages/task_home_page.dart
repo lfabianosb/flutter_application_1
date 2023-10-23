@@ -2,10 +2,10 @@ import 'package:flutter/material.dart';
 
 import 'package:provider/provider.dart';
 
-import 'package:flutter_application_1/app_todo/list_tasks/list_tasks_state.dart';
-import 'package:flutter_application_1/app_todo/list_tasks/list_tasks_store.dart';
-import 'package:flutter_application_1/app_todo/save_task/save_task_state.dart';
-import 'package:flutter_application_1/app_todo/save_task/save_task_store.dart';
+import 'package:flutter_application_1/app_todo/application/list_tasks/list_tasks_state.dart';
+import 'package:flutter_application_1/app_todo/application/list_tasks/list_tasks_store.dart';
+import 'package:flutter_application_1/app_todo/application/save_task/save_task_state.dart';
+import 'package:flutter_application_1/app_todo/application/save_task/save_task_store.dart';
 
 class TaskHomePage extends StatefulWidget {
   const TaskHomePage({super.key});

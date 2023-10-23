@@ -1,1 +1,1 @@
-interface class IDomainEvent {}
+abstract interface class IDomainEvent {}
