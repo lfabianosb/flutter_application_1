@@ -14,6 +14,7 @@ class ListTasksStore extends ChangeNotifier {
   ListTasksState get state => _state;
 
   Future<void> execute() async {
+    debugPrint('ListTasksStore.execute()');
     _state = ExecutingListTasksState();
     notifyListeners();
     try {

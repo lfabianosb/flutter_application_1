@@ -3,7 +3,7 @@ import 'package:flutter_application_1/app_todo/domain/model/task.dart';
 import 'package:flutter_application_1/shared/domain/vo/id.dart';
 
 class TaskDatasource implements ITaskDatasource {
-  final List<Task> tasks = [];
+  final List<Task> tasks = [Task.create(description: 'teste')];
 
   @override
   Future<void> save(Task task) async {

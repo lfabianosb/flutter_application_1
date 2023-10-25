@@ -47,7 +47,6 @@ void setup() {
       ListTasksStore(taskDatasource: getIt()));
   getIt.registerSingleton<SaveTaskStore>(SaveTaskStore(
     taskDatasource: getIt(),
-    eventBus: getIt(),
   ));
   getIt.registerSingleton<TaskSavedEventHandler>(
       TaskSavedEventHandler(listTasksStore: getIt()));
