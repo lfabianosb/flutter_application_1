@@ -6,6 +6,7 @@ import 'package:flutter_application_1/app_todo/application/save_task/save_task_s
 import 'package:flutter_application_1/app_todo/domain/datasources/i_task_datasource.dart';
 import 'package:flutter_application_1/app_todo/domain/events/task_saved_event_handler.dart';
 import 'package:flutter_application_1/app_todo/infra/datasources/task_datasource.dart';
+import 'package:flutter_application_1/app_todo_bloc/application/list_all_tasks/list_all_tasks_cubit.dart';
 import 'package:flutter_application_1/cep/common/adapters/adapters.dart';
 import 'package:flutter_application_1/cep/common/datasources/datasources.dart';
 import 'package:flutter_application_1/cep/common/events/events.dart';
@@ -57,4 +58,8 @@ void setup() {
     cepSalvedOnLocalDsEventHandler: getIt(),
     taskSavedEventHandler: getIt(),
   ));
+
+  // Bloc
+  getIt.registerSingleton<ListAllTasksCubit>(
+      ListAllTasksCubit(taskDatasource: getIt()));
 }
