@@ -4,6 +4,8 @@ import 'package:flutter_bloc/flutter_bloc.dart';
 
 import 'package:flutter_application_1/app_todo_bloc/application/list_all_tasks/list_all_tasks_cubit.dart';
 import 'package:flutter_application_1/app_todo_bloc/application/list_all_tasks/list_all_tasks_state.dart';
+import 'package:flutter_application_1/app_todo_bloc/application/save_task/save_task_cubit.dart';
+import 'package:flutter_application_1/app_todo_bloc/application/save_task/save_task_state.dart';
 
 class BlocTaskHomePage extends StatefulWidget {
   const BlocTaskHomePage({super.key});
@@ -45,7 +47,7 @@ class _BlocTaskHomePageState extends State<BlocTaskHomePage> {
                   hintText: 'Tarefa',
                 ),
               ),
-              // const SaveTaskWidget(),
+              const SaveTaskWidget(),
             ],
           ),
         ),
@@ -55,7 +57,7 @@ class _BlocTaskHomePageState extends State<BlocTaskHomePage> {
         children: [
           FloatingActionButton(
             onPressed: () {
-              // context.read<SaveTaskStore>().execute(taskInputController.text);
+              context.read<SaveTaskCubit>().execute(taskInputController.text);
             },
             tooltip: 'Salvar',
             child: const Icon(Icons.save_rounded),
@@ -66,53 +68,58 @@ class _BlocTaskHomePageState extends State<BlocTaskHomePage> {
   }
 }
 
-// class SaveTaskWidget extends StatelessWidget {
-//   const SaveTaskWidget({super.key});
+class SaveTaskWidget extends StatelessWidget {
+  const SaveTaskWidget({super.key});
 
-//   @override
-//   Widget build(BuildContext context) {
-//     return Consumer<SaveTaskStore>(
-//       builder: (context, store, child) {
-//         SaveTaskState state = store.state;
-//         if (state is InitialSaveTaskState) {
-//           return const Text('');
-//         }
-//         if (state is ExecutedSaveTaskState) {
-//           return Column(
-//             children: [
-//               Text(
-//                 '${state.task.description} saved',
-//                 style: Theme.of(context).textTheme.bodyMedium,
-//               ),
-//             ],
-//           );
-//         }
-//         if (state is ErrorSaveTaskState) {
-//           WidgetsBinding.instance.addPostFrameCallback(
-//               (_) => ScaffoldMessenger.of(context).showSnackBar(
-//                     SnackBar(
-//                       duration: const Duration(seconds: 1),
-//                       content: Text(state.description ?? 'Erro desconhecido'),
-//                     ),
-//                   ));
-//           return const Text('');
-//         }
-//         if (state is ExecutingSaveTaskState) {
-//           return const CircularProgressIndicator(
-//               backgroundColor: Colors.black38);
-//         }
-//         return const Text('');
-//       },
-//     );
-//   }
-// }
+  @override
+  Widget build(BuildContext context) {
+    return BlocConsumer<SaveTaskCubit, SaveTaskState>(
+      listener: (context, state) {
+        if (state is ErrorSaveTaskState) {
+          ScaffoldMessenger.of(context).showSnackBar(
+            SnackBar(
+              duration: const Duration(seconds: 1),
+              content: Text(state.description ?? 'Erro desconhecido'),
+            ),
+          );
+        }
+      },
+      builder: (context, state) {
+        if (state is InitialSaveTaskState) {
+          return const Text('');
+        }
+        if (state is ExecutedSaveTaskState) {
+          return Column(
+            children: [
+              Text(
+                '${state.task.description} saved',
+                style: Theme.of(context).textTheme.bodyMedium,
+              ),
+            ],
+          );
+        }
+        if (state is ExecutingSaveTaskState) {
+          return const CircularProgressIndicator(
+              backgroundColor: Colors.black38);
+        }
+        return const Text('');
+      },
+    );
+  }
+}
 
 class ListTaskWidget extends StatelessWidget {
   const ListTaskWidget({super.key});
 
   @override
   Widget build(BuildContext context) {
-    return BlocBuilder<ListAllTasksCubit, ListAllTasksState>(
+    return BlocConsumer<ListAllTasksCubit, ListAllTasksState>(
+      listener: (context, state) {
+        if (state is ErrorListAllTasksState) {
+          ScaffoldMessenger.of(context).showSnackBar(
+              SnackBar(content: Text(state.description ?? 'Erro...')));
+        }
+      },
       builder: (_, state) {
         if (state is InitialListAllTasksState) {
           return const SizedBox(
@@ -123,12 +130,6 @@ class ListTaskWidget extends StatelessWidget {
         if (state is ExecutingListAllTasksState) {
           return const CircularProgressIndicator(
               backgroundColor: Colors.black38);
-        }
-        if (state is ErrorListAllTasksState) {
-          return Text(
-            state.description ?? 'Erro...',
-            style: Theme.of(context).textTheme.headlineSmall,
-          );
         }
         if (state is ExecutedListAllTasksState) {
           return SizedBox(
