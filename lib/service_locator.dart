@@ -58,10 +58,12 @@ void setupLocator() {
   // ));
 
   // Bloc
-  getIt.registerSingleton<ListAllTasksCubit>(
-      ListAllTasksCubit(taskDatasource: getIt()));
   getIt
       .registerSingleton<SaveTaskCubit>(SaveTaskCubit(taskDatasource: getIt()));
+  getIt.registerSingleton<ListAllTasksCubit>(ListAllTasksCubit(
+    taskDatasource: getIt(),
+    streamSaveTask: getIt<SaveTaskCubit>().stream,
+  ));
 
   getIt.registerSingleton<MyBlocObserver>(
       MyBlocObserver(listAllTasksCubit: getIt()));
