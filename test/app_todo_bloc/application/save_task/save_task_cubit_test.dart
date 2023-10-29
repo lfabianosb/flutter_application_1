@@ -20,10 +20,7 @@ void main() {
   });
 
   group('SaveTaskCubit', () {
-    test('emits [InitialSaveTaskState] when created', () async {
-      when(() => taskDatasource.save(any())).thenAnswer((_) => Future.value());
-      final cubit = SaveTaskCubit(taskDatasource: taskDatasource);
-      await cubit.execute(task.description);
+    test('emits [InitialSaveTaskState] when created', () {
       expect(SaveTaskCubit(taskDatasource: taskDatasource).state,
           InitialSaveTaskState());
     });
