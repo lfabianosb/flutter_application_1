@@ -1,5 +1,3 @@
-import 'package:flutter/material.dart';
-
 import 'package:flutter_bloc/flutter_bloc.dart';
 
 import 'package:flutter_application_1/app_todo_bloc/application/save_task/save_task_state.dart';
@@ -13,14 +11,13 @@ class SaveTaskCubit extends Cubit<SaveTaskState> {
     required this.taskDatasource,
   }) : super(InitialSaveTaskState());
 
-  Future<void> execute(String description) async {
-    debugPrint('SaveTaskCubit.execute()');
+  Future<void> execute(String description, [String? id]) async {
     emit(ExecutingSaveTaskState());
     try {
       if (description == 'a') {
         throw Exception();
       }
-      final task = Task.create(description: description);
+      final task = Task.create(id: id, description: description);
       await taskDatasource.save(task);
       emit(ExecutedSaveTaskState(task: task));
     } on Exception {

@@ -16,11 +16,11 @@ class Task extends IEntity with EquatableMixin {
   });
 
   factory Task.create({
-    Id? id,
+    String? id,
     required String description,
   }) {
     return Task._(
-      id: id ?? Id(),
+      id: Id(id),
       description: description,
       createdAt: DateTime.now(),
       finishedAt: null,
@@ -46,5 +46,5 @@ class Task extends IEntity with EquatableMixin {
   }
 
   @override
-  List<Object?> get props => [id, description, createdAt, finishedAt];
+  List<Object?> get props => [id];
 }
