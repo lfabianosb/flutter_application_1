@@ -3,7 +3,11 @@ import 'package:equatable/equatable.dart';
 import 'package:flutter_application_1/shared/domain/model/i_entity.dart';
 import 'package:flutter_application_1/shared/domain/vo/id.dart';
 
-class Task extends IEntity with EquatableMixin {
+class TaskId extends Id {
+  TaskId([String? value]) : super(value);
+}
+
+class Task extends IEntity<TaskId> with EquatableMixin {
   final String description;
   final DateTime createdAt;
   final DateTime? finishedAt;
@@ -20,7 +24,7 @@ class Task extends IEntity with EquatableMixin {
     required String description,
   }) {
     return Task._(
-      id: Id(id),
+      id: TaskId(id),
       description: description,
       createdAt: DateTime.now(),
       finishedAt: null,
