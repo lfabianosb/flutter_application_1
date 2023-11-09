@@ -2,11 +2,10 @@ import 'package:flutter/material.dart';
 
 import 'package:flutter_bloc/flutter_bloc.dart';
 
-import 'package:flutter_application_1/app_todo_bloc/application/list_all_tasks/list_all_tasks_cubit.dart';
-import 'package:flutter_application_1/app_todo_bloc/application/save_task/save_task_cubit.dart';
-import 'package:flutter_application_1/app_todo_bloc/pages/bloc_task_home_page.dart';
-import 'package:flutter_application_1/bloc_observer.dart';
 import 'package:flutter_application_1/service_locator.dart';
+import 'package:flutter_application_1/todo/stream/application/list_all_tasks/list_all_tasks_cubit.dart';
+import 'package:flutter_application_1/todo/stream/application/save_task/save_task_cubit.dart';
+import 'package:flutter_application_1/todo/stream/pages/bloc_stream_task_home_page.dart';
 
 void main() {
   // getIt.get<EventBusController>().init();
@@ -14,7 +13,7 @@ void main() {
 
   WidgetsFlutterBinding.ensureInitialized();
   setupLocator();
-  Bloc.observer = getIt.get<MyBlocObserver>();
+  // Bloc.observer = getIt.get<MyBlocObserver>();
   runApp(const App());
 }
 
@@ -88,7 +87,7 @@ class AppTodoPage extends StatelessWidget {
           create: (_) => getIt.get<SaveTaskCubit>(),
         ),
       ],
-      child: const BlocTaskHomePage(),
+      child: const BlocStreamTaskHomePage(),
     );
   }
 }
