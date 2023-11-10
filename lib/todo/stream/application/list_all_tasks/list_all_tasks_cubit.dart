@@ -16,9 +16,7 @@ class ListAllTasksCubit extends Cubit<ListAllTasksState> {
     try {
       final streamOfTasks = _repository.findAll();
       streamOfTasks.listen(
-        (tasks) {
-          emit(ExecutedListAllTasksState(tasks: [...tasks]));
-        },
+        (tasks) => emit(ExecutedListAllTasksState(tasks: [...tasks])),
         onError: (_) => emit(
             ErrorListAllTasksState(description: 'Erro ao listar as tarefas')),
       );

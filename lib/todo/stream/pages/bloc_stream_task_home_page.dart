@@ -135,6 +135,7 @@ class ListTaskWidget extends StatelessWidget {
           return SizedBox(
             height: 260,
             child: ListView.builder(
+              physics: const ClampingScrollPhysics(),
               itemCount: state.tasks.length,
               itemBuilder: (context, index) {
                 return ListTile(
