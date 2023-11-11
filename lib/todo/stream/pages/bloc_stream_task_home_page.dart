@@ -7,14 +7,24 @@ import 'package:flutter_application_1/todo/stream/application/list_all_tasks/lis
 import 'package:flutter_application_1/todo/stream/application/save_task/save_task_cubit.dart';
 import 'package:flutter_application_1/todo/stream/application/save_task/save_task_state.dart';
 
-class BlocStreamTaskHomePage extends StatefulWidget {
+class BlocStreamTaskHomePage extends StatelessWidget {
   const BlocStreamTaskHomePage({super.key});
 
   @override
-  State<BlocStreamTaskHomePage> createState() => _BlocStreamTaskHomePageState();
+  Widget build(BuildContext context) {
+    context.read<ListAllTasksCubit>().execute();
+    return const BlocStreamTaskHomeView();
+  }
 }
 
-class _BlocStreamTaskHomePageState extends State<BlocStreamTaskHomePage> {
+class BlocStreamTaskHomeView extends StatefulWidget {
+  const BlocStreamTaskHomeView({Key? key}) : super(key: key);
+
+  @override
+  State<BlocStreamTaskHomeView> createState() => _BlocStreamTaskHomeViewState();
+}
+
+class _BlocStreamTaskHomeViewState extends State<BlocStreamTaskHomeView> {
   final taskInputController = TextEditingController();
 
   @override

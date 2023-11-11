@@ -81,7 +81,7 @@ class AppTodoPage extends StatelessWidget {
     return MultiBlocProvider(
       providers: [
         BlocProvider(
-          create: (_) => getIt.get<ListAllTasksCubit>()..execute(),
+          create: (_) => getIt.get<ListAllTasksCubit>(),
         ),
         BlocProvider(
           create: (_) => getIt.get<SaveTaskCubit>(),
